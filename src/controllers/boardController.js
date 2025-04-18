@@ -7,7 +7,7 @@
 import { StatusCodes } from 'http-status-codes'
 import { boardService } from '~/services/boardService'
 
-const createNew = async (req, res, next) => { 
+const createNew = async (req, res, next) => {
   try {
     //console.log('req.body: ', req.body)
     // Điều hướng dữ liệu sang tầng Service
@@ -17,6 +17,16 @@ const createNew = async (req, res, next) => {
   } catch (error) { next(error) }
 }
 
+const getDetails = async (req, res, next) => {
+  try {
+    const boardId = req.params.id
+    // Sau này ở khóa MERN STACK Advance học trực tiếp sẽ có thêm userId nữa để chỉ lấy board thuộc về user đó thôi chẳng hạn...vv
+    const board = await boardService.getDetails(boardId)
+    res.status(StatusCodes.OK).json({ board })
+  } catch (error) { next(error) }
+}
+
 export const boardController = {
-  createNew
+  createNew,
+  getDetails
 }
